@@ -69,10 +69,13 @@ do
 	#Display on the screen
 	echo "\"$MonthName\" , \"$paydate\" , \"$bonusdate\""
 	echo "*******************************"
+	
+	
 	let COUNTER=COUNTER+1
 	let DC=DC+1			 
 done
-
+#Commit to GIT
+	git commit -a -m "The CSV file has been updated"
 }
 
 #Execute the payment dates function
