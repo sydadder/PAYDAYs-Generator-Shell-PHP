@@ -6,8 +6,8 @@ COUNTER=$(date +'%m')
 DC=0
 
 #Insert the headings into the CSV file
-echo "\"Month\" , \"Salary Payment Date\" , \"Bonus Payment Date\"" >> HRPaydates.csv
-echo "\"Month\" , \"Salary Payment Date\" , \"Bonus Payment Date\""
+echo "Month,Salary Payment Date,Bonus Payment Date" >> HRPaydates.csv
+echo "Month,Salary Payment Date,Bonus Payment Date"
 
 while [  $COUNTER -lt 13 ]; 
 do
@@ -65,9 +65,9 @@ do
 	
 	#OUPUT INTO CSV
 	#Insert into HRPaydates.csv
-	echo "\"$MonthName\" , \"$paydate\" , \"$bonusdate\"" >> HRPaydates.csv
+	echo "$MonthName,$paydate,$bonusdate" >> HRPaydates.csv
 	#Display on the screen
-	echo "\"$MonthName\" , \"$paydate\" , \"$bonusdate\""
+	echo "$MonthName,$paydate,$bonusdate"
 	echo "*******************************"
 	
 	
