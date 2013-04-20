@@ -6,44 +6,58 @@ COUNTER=$(date +'%m')
 DC=0
 while [  $COUNTER -lt 13 ]; 
 do
-	echo The Month is $COUNTER and counter at $DC
 	CurrMonth=$(date --date "+$DC months")
-	echo "Current Month is $CurrMonth"             
-	#Output Current Month Name
+	
+	#GET THE DATE VARIABLES TO DETERMINE THE PAYMENT AND BONUS DATES of the month in the loop
+	
+	#Current Day of the month
 	thisday=$(date --date "+$DC months" +'%d')
+	#Current Month
 	thismonth=$(date --date "+$DC months" +'%m')
+	#Current Year
 	thisyear=$(date --date "+$DC months" +'%y')
+	#Current Month Name
 	MonthName=$(date --date "+$DC months" +'%B')
+	
+	
+	#DETERMINE SALARY PAYMENT DATE based on the last date/day of the month
+	
+	#Solution to find the last date of the month by using variable mp as Current Month + 1
 	mp=$((DC+1))
-	echo "Month $MonthName"			 
 	#Output Last Date of the month 
 	lastday=$(date -d "+$mp month -$(date +%d) days")
 	paymentdate=$(date -d "+$mp month -$(date +%d) days" +'%d')
-	echo "Last day of the month $paymentdate"
+	
 	#Output day of the week on the last day 
 	dayofweeklastday=$(date -d "+$mp month -$(date +%d) days" +'%u')
-	echo "Day of the week on $paymentdate is $dayofweeklastday"
-	#SALARY PAYMENT DATE
+	
+	#Check if the last day is a Sunday, if yes, decrement paymentdate by 2 days thereby making the payment day friday
+	#Else if the last day is a Saturday decrement paymentdate by 1 days thereby making the payment day friday
+	#The condition returns the Salary payment day for the current month in the loop
 	if [ "$dayofweeklastday" == "7" ]; then
-	paydate=$((paymentdate-2))
+		paydate=$((paymentdate-2))
 	elif [ "$dayofweeklastday" == "6" ]; then
-	paydate=$((paymentdate-1))
+		paydate=$((paymentdate-1))
 	else 
-	paydate=$paymentdate
+		paydate=$paymentdate
 	fi
-	echo "New Payment date $paydate"
-	#BONUS PAYMENT DATE
+	
+	#DETERMINE BONUS PAYMENT DATE based on the 15th of the current month in the loop
+	
 	fifteenthofmonth=$(date -s "$thisyear-$thismonth-15")
 	dayofweek15th=$(date -s "$thisyear-$thismonth-15" +'%u')
-	echo "$dayofweek15th Fiftheenth of the month is $fifteenthofmonth"
+	
+	#Check if the 15th of the month is a Sunday, if yes, increament bonusdate by 3 taking it to the next Wednesday
+	#Else if the 15th if the month is a Saturday increament bonusdate by 4 taking it to the next Wednesday
+	#The condition returns the Bonus payment day for the current month in the loop
 	if [ "$dayofweek15th" == "7" ]; then
-	bonusdate=18
+		bonusdate=18
 	elif [ "$dayofweek15th" == "6" ]; then
-	bonusdate=19
+		bonusdate=19
 	else
-	bonusdate=15
+		bonusdate=15
 	fi
-	echo "Bonus Payment date $bonusdate"
+	
 	#OUPUT INTO CSV
 	#echo "$MonthName | $paydate | $bonusdate" >> HRPaydates.csv
 	echo "$MonthName | $paydate | $bonusdate"
