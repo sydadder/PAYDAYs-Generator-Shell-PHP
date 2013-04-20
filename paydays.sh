@@ -74,8 +74,8 @@ do
 	let COUNTER=COUNTER+1
 	let DC=DC+1			 
 done
-#Commit to GIT
-	git commit -a -m "The CSV file has been updated"
+#Commit to GIT (This is just for demonstration purpose)
+#git commit -a -m "The CSV file has been updated"
 }
 
 #Execute the payment dates function
