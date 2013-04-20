@@ -31,7 +31,6 @@ class hrdepartment{
 	$datedata = getdate($dateInput);
 	$filename = "HRPaydates.csv";
 	$fp = fopen($filename,"w");
-	$CSVData = "";
 	$CSVData =  "INSERTION INTO CSV VIA PHP SCRIPT \n Month,Salary Payment Date,Bonus Payment Date \n";
 	fputs($fp, $CSVData);
 	echo '<table><tr><td>Month</td><td>Salary Payment Date</td><td>Bonus Payment Date</td></tr>';
@@ -52,6 +51,7 @@ class hrdepartment{
 	}
 	
 	echo '</table>';
+	//Href to the location of the file
 	echo '<a href="HRPaydates.csv">Download CSV</a>';	
 	
 	
