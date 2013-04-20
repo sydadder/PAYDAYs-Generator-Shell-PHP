@@ -4,6 +4,11 @@ function HRPayement(){
 #A loop starts from the current month till the last month of the year. (eg. April till December will be from 04-12)
 COUNTER=$(date +'%m')
 DC=0
+
+#Insert the headings into the CSV file
+echo "\"Month\" , \"Salary Payment Date\" , \"Bonus Payment Date\"" >> HRPaydates.csv
+echo "\"Month\" , \"Salary Payment Date\" , \"Bonus Payment Date\""
+
 while [  $COUNTER -lt 13 ]; 
 do
 	CurrMonth=$(date --date "+$DC months")
@@ -59,9 +64,10 @@ do
 	fi
 	
 	#OUPUT INTO CSV
-	#echo "$MonthName | $paydate | $bonusdate" >> HRPaydates.csv
-	echo "$MonthName | $paydate | $bonusdate"
-
+	#Insert into HRPaydates.csv
+	echo "\"$MonthName\" , \"$paydate\" , \"$bonusdate\"" >> HRPaydates.csv
+	#Display on the screen
+	echo "\"$MonthName\" , \"$paydate\" , \"$bonusdate\""
 	echo "*******************************"
 	let COUNTER=COUNTER+1
 	let DC=DC+1			 
