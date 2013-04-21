@@ -5,9 +5,10 @@ function HRPayement(){
 COUNTER=$(date +'%m')
 DC=0
 
-#Insert the headings into the CSV file
-echo "Month,Salary Payment Date,Bonus Payment Date" >> HRPaydates.csv
+#Display the headings
 echo "Month,Salary Payment Date,Bonus Payment Date"
+#Create a variable and insert the headings to be inserted into the CSV
+CSVFeed="Month,Salary Payment Date,Bonus Payment Date\n"
 
 while [  $COUNTER -lt 13 ]; 
 do
@@ -58,16 +59,18 @@ do
 	fi
 	
 	#OUPUT INTO CSV
-	#Insert into HRPaydates.csv
-	echo "$MonthName,$paydate,$bonusdate" >> HRPaydates.csv
+	#Insert Month name, paydate, and bonus date into CSVFeed variable which will be sent to the csv file
+	CSVFeed+="$MonthName,$paydate,$bonusdate\n"
 	#Display on the screen
 	echo "$MonthName,$paydate,$bonusdate"
 	echo "*******************************"
 	
-	
 	let COUNTER=COUNTER+1
 	let DC=DC+1			 
 done
+#Insert data into HRPaydates.csv
+echo -e "$CSVFeed" >> HRPaydates.csv
+
 #Commit to GIT (This is just for demonstration purpose)
 #git commit -a -m "The CSV file has been updated"
 }
