@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 
 class hrdepartment{
 		
-	public static function paymentday($date){
+	public function paymentday($date){
 		//Returns Previous business day if the last day of the month falls on a weekend
 		$CurrentMonthData = getdate($date);
 		if($CurrentMonthData['wday']==0){
@@ -15,7 +15,7 @@ class hrdepartment{
 		return $date;
 	}
 	
-	public static function bonusday($date){
+	public function bonusday($date){
 		//Returns Next Wednesday of the week from 15th if the 15th falls on a weekend.
 		$CurrentMonthData = getdate($date);
 		if($CurrentMonthData['wday']==0){
@@ -39,11 +39,11 @@ class hrdepartment{
 		
 		//SALARY PAYMENT DATE
 		$CurrentMonthLastDateTimestamp = mktime(0,0,0,$i,date("t",mktime(0,0,0,$i)), $datedata['year']);
-		$SalaryPaymentDate = date("d-M-Y", (hrdepartment::paymentday($CurrentMonthLastDateTimestamp)));
+		$SalaryPaymentDate = date("d-M-Y", ($this->paymentday($CurrentMonthLastDateTimestamp)));
 
 		//BONUS PAYMENT DATE
 		$CurrentMonth15Timestamp = mktime(0,0,0,$i,15,$datedata['year']);
-		$BonusPaymentDate = date("d-M-Y", (hrdepartment::bonusday($CurrentMonth15Timestamp)));
+		$BonusPaymentDate = date("d-M-Y", ($this->bonusday($CurrentMonth15Timestamp)));
 		
 		$CSVData =  date("M", mktime(0, 0, 0, $i)).",".$SalaryPaymentDate.",". $BonusPaymentDate."\n";
 		fputs($fp, $CSVData);
@@ -51,8 +51,7 @@ class hrdepartment{
 	}
 	
 	echo '</table>';
-	//Href to the location of the file
-	echo '<a href="HRPaydates.csv">Download CSV</a>';	
+	echo '<a href="/uploads/HRPaydates.csv">Download CSV</a>';	
 	
 	
 	}

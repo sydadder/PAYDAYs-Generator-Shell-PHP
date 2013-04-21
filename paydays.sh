@@ -24,43 +24,37 @@ do
 	#Current Month Name
 	MonthName=$(date --date "+$DC months" +'%B')
 	
-	
 	#DETERMINE SALARY PAYMENT DATE based on the last date/day of the month
 	
-	#Solution to find the last date of the month by using variable mp as Current Month + 1
-	mp=$((DC+1))
 	#Output Last Date of the month 
-	lastday=$(date -d "+$mp month -$(date +%d) days")
-	paymentdate=$(date -d "+$mp month -$(date +%d) days" +'%d')
+	paymentdate=$(date -d "+$((DC+1)) month -$(date +%d) days" +'%d')
 	
 	#Output day of the week on the last day 
-	dayofweeklastday=$(date -d "+$mp month -$(date +%d) days" +'%u')
+	dayofweeklastday=$(date -d "+$((DC+1)) month -$(date +%d) days" +'%u')
 	
 	#Check if the last day is a Sunday, if yes, decrement paymentdate by 2 days thereby making the payment day friday
 	#Else if the last day is a Saturday decrement paymentdate by 1 days thereby making the payment day friday
 	#The condition returns the Salary payment day for the current month in the loop
 	if [ "$dayofweeklastday" == "7" ]; then
-		paydate=$((paymentdate-2))
+		paydate=$(date -s "$thisyear-$thismonth-$((paymentdate-2))" +'%d-%b-%y') 
 	elif [ "$dayofweeklastday" == "6" ]; then
-		paydate=$((paymentdate-1))
+		paydate=$(date -s "$thisyear-$thismonth-$((paymentdate-1))" +'%d-%b-%y') 
 	else 
-		paydate=$paymentdate
+		paydate=$(date -s "$thisyear-$thismonth-$paymentdate" +'%d-%b-%y')
 	fi
 	
 	#DETERMINE BONUS PAYMENT DATE based on the 15th of the current month in the loop
-	
-	fifteenthofmonth=$(date -s "$thisyear-$thismonth-15")
 	dayofweek15th=$(date -s "$thisyear-$thismonth-15" +'%u')
 	
 	#Check if the 15th of the month is a Sunday, if yes, increament bonusdate by 3 taking it to the next Wednesday
 	#Else if the 15th if the month is a Saturday increament bonusdate by 4 taking it to the next Wednesday
 	#The condition returns the Bonus payment day for the current month in the loop
 	if [ "$dayofweek15th" == "7" ]; then
-		bonusdate=18
+		bonusdate=$(date -s "$thisyear-$thismonth-18" +'%d-%b-%y')
 	elif [ "$dayofweek15th" == "6" ]; then
-		bonusdate=19
+		bonusdate=$(date -s "$thisyear-$thismonth-19" +'%d-%b-%y')
 	else
-		bonusdate=15
+		bonusdate=$(date -s "$thisyear-$thismonth-15" +'%d-%b-%y')
 	fi
 	
 	#OUPUT INTO CSV
