@@ -31,7 +31,7 @@ class hrdepartment{
         $fp = fopen($filename,"w");
         $CSVData =  "INSERTION INTO CSV VIA PHP SCRIPT \n Month,Salary Payment Date,Bonus Payment Date \n";
         fputs($fp, $CSVData);
-        echo '<table><tr><td>Month</td><td>Salary Payment Date</td><td>Bonus Payment Date</td></tr>';
+        echo '<table id="container"><thead><tr><th>Month</th><th>Salary Payment Date</th><th>Bonus Payment Date</th></tr></thead><tbody>';
         for($i = $datedata['mon'];  $i<=12; $i++){
             //Generate Variables
 
@@ -48,15 +48,31 @@ class hrdepartment{
             echo '<tr><td>'.$i.' - '. date("M", mktime(0, 0, 0, $i)).'</td><td>'.$SalaryPaymentDate.'</td><td>'.$BonusPaymentDate.'</td></tr>';
         }
 
-        echo '</table>';
+        echo '</tbody></table>';
         echo '<a href="HRPaydates.csv">Download CSV</a>';
 
 
     }
 }
 
-
-$Business = new hrdepartment();
-$Business->displayPayDates(time());
-
 ?>
+
+
+
+<html >
+<head>
+    <title>HR DATES</title>
+    <style type="text/css">
+        #container td{
+            width:150px;
+        }
+    </style>
+</head>
+<body>
+<?php
+    $Business = new hrdepartment();
+    $Business->displayPayDates(time());
+?>
+</body>
+
+</html>
