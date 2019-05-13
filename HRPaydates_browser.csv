@@ -1,0 +1,10 @@
+INSERTION INTO CSV VIA PHP SCRIPT 
+ Month,Salary Payment Date,Bonus Payment Date 
+May,31-May-2019,15-May-2019
+Jun,28-Jun-2019,19-Jun-2019
+Jul,31-Jul-2019,15-Jul-2019
+Aug,30-Aug-2019,15-Aug-2019
+Sep,30-Sep-2019,18-Sep-2019
+Oct,31-Oct-2019,15-Oct-2019
+Nov,29-Nov-2019,15-Nov-2019
+Dec,31-Dec-2019,18-Dec-2019
